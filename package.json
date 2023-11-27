@@ -7,7 +7,7 @@
     "start": "vite",
     "deploy:ios": "vite build && ./deploy.ios.sh",
     "deploy:android": "vite build && ./deploy.android.sh",
-    "deploy:web": "vite build --base=/card-game && ./deploy.web.sh"
+    "deploy:web": "vite build --base=/card-game-original && ./deploy.web.sh"
   },
   "dependencies": {
     "@capacitor/android": "5.5.1",
