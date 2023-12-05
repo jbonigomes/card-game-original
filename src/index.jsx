@@ -24,6 +24,10 @@ import cardback from './images/cardback.png'
 import pumpkins from './images/pumpkins.png'
 import aubergine from './images/aubergine.png'
 
+import flipSound from './sounds/flip.mp3'
+import matchSound from './sounds/match.mp3'
+import soundtrack from './sounds/soundtrack.mp3'
+
 import './index.css'
 
 // Consider iOS build issue:
@@ -47,8 +51,8 @@ const Game = () => {
     8: { hidden: true, pair: 24, image: grapes },
     9: { hidden: true, pair: 25, image: melon },
     10: { hidden: true, pair: 26, image: olives },
-    11: { hidden: true, pair: 27, image: onions },
-    12: { hidden: true, pair: 28, image: orange },
+    // 11: { hidden: true, pair: 27, image: onions },
+    // 12: { hidden: true, pair: 28, image: orange },
     // 13: { hidden: true, pair: 29, image: peppers },
     // 14: { hidden: true, pair: 30, image: pumpkins },
     // 15: { hidden: true, pair: 31, image: spinach },
@@ -63,8 +67,8 @@ const Game = () => {
     24: { hidden: true, pair: 8, image: grapes },
     25: { hidden: true, pair: 9, image: melon },
     26: { hidden: true, pair: 10, image: olives },
-    27: { hidden: true, pair: 11, image: onions },
-    28: { hidden: true, pair: 12, image: orange },
+    // 27: { hidden: true, pair: 11, image: onions },
+    // 28: { hidden: true, pair: 12, image: orange },
     // 29: { hidden: true, pair: 13, image: peppers },
     // 30: { hidden: true, pair: 14, image: pumpkins },
     // 31: { hidden: true, pair: 15, image: spinach },
@@ -72,6 +76,8 @@ const Game = () => {
   })
 
   const flip = (id) => () => {
+    (new Audio(flipSound)).play()
+
     setLastDrawn(cards[id].pair === lastDrawn ? 0 : +id)
     setCards({ ...cards, [id]: { ...cards[id], hidden: false } })
 
@@ -87,6 +93,8 @@ const Game = () => {
           [lastDrawn]: { ...cards[lastDrawn], hidden: true },
         })
       }, 900)
+    } else if (lastDrawn) {
+      (new Audio(matchSound)).play()
     }
 
     // Game over
@@ -106,6 +114,13 @@ const Game = () => {
         )
       }, 3000)
     }
+  }
+
+  const playSoundtrack = (el) => {
+    el?.play().catch(() => {
+      el.volume = 0.1
+      document.addEventListener('click', el.play, { once: true })
+    })
   }
 
   React.useEffect(() => {
@@ -150,11 +165,12 @@ const Game = () => {
           <ReactCardFlip
             infinite
             flipSpeedBackToFront={0.4}
-            flipSpeedFrontToBack={0.4}
+            flipSpeedFrontToBack={0.4}bhnjkghujkghy
             isFlipped={!cards[id].hidden}
           >
             <div className="card card-back">
               <img src={cardback} />
+              {/*<div className="pattern" />*/}
             </div>
             <div className="card">
               <img src={cards[id].image} />
@@ -168,6 +184,10 @@ const Game = () => {
           <ReactConfetti particleCount={400} force={0.8} />
         </div>
       )}
+
+      <audio ref={playSoundtrack} loop>
+        <source src={soundtrack} type="audio/mpeg" />
+      </audio>
     </div>
   )
 }
