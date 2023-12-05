@@ -124,7 +124,7 @@ const Game = () => {
   }
 
   React.useEffect(() => {
-    window.screen.orientation.lock('landscape')
+    window?.screen?.orientation?.lock?.('landscape')
     StatusBar
       .hide()
       .then(() => setViewReady(true))
