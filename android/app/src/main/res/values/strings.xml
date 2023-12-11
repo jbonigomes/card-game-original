@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">card-game-original</string>
+    <string name="title_activity_main">card-game-original</string>
+    <string name="package_name">com.jbonigomes.cardgameoriginal</string>
+    <string name="custom_url_scheme">com.jbonigomes.cardgameoriginal</string>
+</resources>
